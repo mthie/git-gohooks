@@ -18,7 +18,7 @@ func main() {
 	args := []string{"-l"}
 	args = append(args, files...)
 
-	result := general.RunCommand("gofmt", args...)
+	result, _ := general.RunCommand("gofmt", args...)
 	if result == "" {
 		os.Exit(0)
 		return
