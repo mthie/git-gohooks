@@ -2,6 +2,7 @@ package general
 
 import (
 	"bytes"
+	"io/ioutil"
 	"log"
 	"os/exec"
 	"path/filepath"
@@ -14,7 +15,9 @@ import (
 func RunCommand(command string, values ...string) (result string, errCode int) {
 	cmd := exec.Command(command, values...)
 	var out bytes.Buffer
+	var outErr bytes.Buffer
 	cmd.Stdout = &out
+	cmd.Stderr = &outErr
 
 	if err := cmd.Start(); err != nil {
 		log.Fatalf("cmd.Start: %v", err)
@@ -24,6 +27,7 @@ func RunCommand(command string, values ...string) (result string, errCode int) {
 		if exiterr, ok := err.(*exec.ExitError); ok {
 			if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
 				errCode = status.ExitStatus()
+				result = outErr.String()
 				return result, errCode
 			}
 		} else {
@@ -50,6 +54,15 @@ func GetChangedGoFiles() (result []string) {
 		if filename != "" && strings.HasSuffix(filename, ".go") {
 			result = append(result, absolutePath+"/"+filename)
 		}
+	}
+	return result
+}
+
+// GetFilesFromDir returns a list of all files in the current directory
+func GetFilesList() (result []string) {
+	files, _ := ioutil.ReadDir("./")
+	for _, f := range files {
+		result = append(result, f.Name())
 	}
 	return result
 }
