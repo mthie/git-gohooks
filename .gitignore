@@ -1,3 +1,4 @@
+git-gohooks
 githook-gofmt/githook-gofmt
 githook-gobuild/githook-gobuild
 githook-gotest/githook-gotest
