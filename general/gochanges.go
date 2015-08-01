@@ -25,7 +25,7 @@ func RunCommand(command string, values ...string) (result string, errCode int) {
 
 	if err := cmd.Wait(); err != nil {
 		if exiterr, ok := err.(*exec.ExitError); ok {
-			if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
+			if status, okStatus := exiterr.Sys().(syscall.WaitStatus); okStatus {
 				errCode = status.ExitStatus()
 				result = outErr.String()
 				return result, errCode
@@ -58,7 +58,7 @@ func GetChangedGoFiles() (result []string) {
 	return result
 }
 
-// GetFilesFromDir returns a list of all files in the current directory
+// GetFilesList returns a list of all files in the current directory
 func GetFilesList() (result []string) {
 	files, _ := ioutil.ReadDir("./")
 	for _, f := range files {
