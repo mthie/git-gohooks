@@ -7,7 +7,7 @@ Collection of git hooks. Most of the pre-commit hooks are Go specific.
 usage
 -----
 
-* to install the hooks use:
+*	to install the hooks use:
 
 		go get github.com/mthie/git-gohooks
 		go get github.com/mthie/git-gohooks/githook-gobuild
@@ -15,7 +15,7 @@ usage
 		go get github.com/mthie/git-gohooks/githook-gotest
 
 		
-*	you have the choice to copy it to your .git/hooks/ folder or to symlink it with
+*	on a Unix based system symlink it with
 
 		( cd .git/hooks && \
 		  ln -s $GOPATH/bin/git-gohooks pre-commit && \
@@ -23,3 +23,10 @@ usage
 		  ln -s $GOPATH/bin/githook-gobuild pre-commit_02_gobuild && \ 
 		  ln -s $GOPATH/bin/githook-gotest pre-commit_03_gotest )
 
+*	on a Windows system in a command shell with **Administrator privileges**
+
+		cd .git\hooks
+		mklink /H pre-commit <YourGoPath>\bin\git-gohooks.exe
+		mklink /H pre-commit_01_gofmt.exe <YourGoPath>\bin\githook-gofmt.exe
+		mklink /H pre-commit_02_gobuild.exe <YourGoPath>\bin\githook-gobuild.exe
+		mklink /H pre-commit_03_gotest.exe <YourGoPath>\bin\githook-gotest.exe
