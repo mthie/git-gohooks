@@ -19,6 +19,7 @@ usage
 
 		
 *	you have the choice to copy it to your .git/hooks/ folder or to symlink it with
+
 		( cd .git/hooks && \
 
 		  ln -s $GOPATH/bin/git-gohooks pre-commit && \
