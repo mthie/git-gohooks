@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
+	"strings"
 
 	"github.com/mthie/git-gohooks/general"
 )
@@ -23,13 +23,15 @@ func main() {
 		os.Exit(0)
 		return
 	}
+
+	resultFiles := strings.Split(result, "\n")
+
 	fmt.Fprint(os.Stderr, "Go files must be formatted with gofmt. Please run:\n\n")
 	fmt.Fprint(os.Stderr, "  gofmt -w")
-	for _, file := range files {
+	for _, file := range resultFiles {
 		fmt.Fprint(os.Stderr, " \\\n")
 		fmt.Fprintf(os.Stderr, "    %s", file)
 	}
 	fmt.Fprint(os.Stderr, "\n")
 	os.Exit(1)
-	log.Printf("Result: %+v", result)
 }
