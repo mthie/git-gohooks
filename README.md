@@ -26,7 +26,7 @@ usage
 
 		  ln -s $GOPATH/bin/githook-gofmt pre-commit_01_gofmt && \
 
-		  ln -s $GOPATH/bin/githook-gobuild pre-commit-02_gobuild && \ 
+		  ln -s $GOPATH/bin/githook-gobuild pre-commit_02_gobuild && \ 
 		  
 		  ln -s $GOPATH/bin/githook-gotest pre-commit_03_gotest )
 
