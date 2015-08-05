@@ -20,7 +20,7 @@ usage
 		( cd .git/hooks && \
 		  ln -s $GOPATH/bin/git-gohooks pre-commit && \
 		  ln -s $GOPATH/bin/githook-gofmt pre-commit_01_gofmt && \
-		  ln -s $GOPATH/bin/githook-gobuild pre-commit_02_gobuild && \ 
+		  ln -s $GOPATH/bin/githook-gobuild pre-commit_02_gobuild && \
 		  ln -s $GOPATH/bin/githook-gotest pre-commit_03_gotest )
 
 *	on a Windows system in a command shell with **Administrator privileges**
