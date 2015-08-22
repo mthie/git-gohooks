@@ -47,9 +47,6 @@ func GetChangedGoFiles() (result []string) {
 	absolutePath := GetGitRoot()
 
 	resultLines := strings.Split(gitDiff, "\n")
-	if resultLines == nil {
-		return
-	}
 	for _, filename := range resultLines {
 		if filename != "" && strings.HasSuffix(filename, ".go") {
 			result = append(result, absolutePath+"/"+filename)
