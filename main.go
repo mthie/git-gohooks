@@ -11,7 +11,7 @@ import (
 
 func main() {
 	gitroot, _ := filepath.Abs(filepath.Dir(general.GetGitRoot()))
-	hookBase := filepath.Base(os.Args[0])
+	hookBase := strings.TrimSuffix(filepath.Base(os.Args[0]), filepath.Ext(os.Args[0]))
 	hookPrefix := fmt.Sprintf("%s_", hookBase)
 	os.Chdir(gitroot)
 
