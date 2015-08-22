@@ -18,7 +18,7 @@ func main() {
 
 	result, status := general.RunCommand("go", "test", "-test.short", "./...")
 	if status != 0 {
-		fmt.Fprint(os.Stderr, "Test failed, please commit only stuff that works.\n%s", result)
+		fmt.Fprintf(os.Stderr, "Test failed, please commit only stuff that works.\n%s", result)
 		os.Exit(1)
 		return
 	}
