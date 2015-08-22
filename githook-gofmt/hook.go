@@ -10,7 +10,7 @@ import (
 
 func main() {
 	files := general.GetChangedGoFiles()
-	if files == nil {
+	if len(files) == 0 {
 		os.Exit(0)
 		return
 	}
