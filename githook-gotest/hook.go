@@ -16,9 +16,9 @@ func main() {
 
 	os.Chdir(general.GetGitRoot())
 
-	_, status := general.RunCommand("go", "test", "-test.short", "./...")
+	result, status := general.RunCommand("go", "test", "-test.short", "./...")
 	if status != 0 {
-		fmt.Fprint(os.Stderr, "Test failed, please commit only stuff that works.\n")
+		fmt.Fprint(os.Stderr, "Test failed, please commit only stuff that works.\n%s", result)
 		os.Exit(1)
 		return
 	}
