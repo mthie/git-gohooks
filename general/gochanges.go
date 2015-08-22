@@ -2,7 +2,6 @@ package general
 
 import (
 	"bytes"
-	"io/ioutil"
 	"log"
 	"os/exec"
 	"path/filepath"
@@ -47,22 +46,10 @@ func GetChangedGoFiles() (result []string) {
 	absolutePath := GetGitRoot()
 
 	resultLines := strings.Split(gitDiff, "\n")
-	if resultLines == nil {
-		return
-	}
 	for _, filename := range resultLines {
-		if filename != "" && strings.HasSuffix(filename, ".go") {
-			result = append(result, absolutePath+"/"+filename)
+		if strings.HasSuffix(filename, ".go") {
+			result = append(result, filepath.Join(absolutePath, filename))
 		}
-	}
-	return result
-}
-
-// GetFilesList returns a list of all files in the current directory
-func GetFilesList() (result []string) {
-	files, _ := ioutil.ReadDir("./")
-	for _, f := range files {
-		result = append(result, f.Name())
 	}
 	return result
 }

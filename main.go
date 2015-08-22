@@ -11,20 +11,28 @@ import (
 
 func main() {
 	gitroot, _ := filepath.Abs(filepath.Dir(general.GetGitRoot()))
-	os.Chdir(gitroot + "/.git/hooks")
-	currentFileSplit := strings.Split(os.Args[0], "/")
-	currentFile := currentFileSplit[len(currentFileSplit)-1]
-	files := general.GetFilesList()
+	hookBase := filepath.Base(os.Args[0])
+	hookPrefix := fmt.Sprintf("%s_", hookBase)
 	os.Chdir(gitroot)
 
-	for _, file := range files {
-		if strings.HasPrefix(file, fmt.Sprintf("%s_", currentFile)) {
-			result, errCode := general.RunCommand(gitroot + "/.git/hooks/" + file)
+	filepath.Walk(gitroot, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if info.IsDir() {
+			return filepath.SkipDir
+		}
+		file := info.Name()
+
+		if strings.HasPrefix(file, hookPrefix) {
+			result, errCode := general.RunCommand(filepath.Join(gitroot, "/.git/hooks", file))
 			if errCode != 0 {
 				fmt.Fprintf(os.Stderr, "Error: %s", result)
 				os.Exit(errCode)
-				return
+				return nil
 			}
 		}
-	}
+		return nil
+	})
 }
